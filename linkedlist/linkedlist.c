@@ -29,11 +29,33 @@ void addNode( struct LinkedList *ll, void *_value ) {
 	return;
 };
 
+void removeNode( struct LinkedList *ll ) {
+	if ( NULL != ll->end ) {
+		struct Node *temp = ll->start;
+		while ( temp->next != ll->end ) {
+			temp = temp->next;
+		}
+		temp->next = NULL;
+	}
+	return;
+};
+
 int main() {
 	struct LinkedList llist;
     LinkedList_new(&llist);
     addNode(&llist, "Banana");
     addNode(&llist, "Split");
+    addNode(&llist, "and Apple Pie");
+    removeNode(&llist);
 
-    printf("%s %s\n", llist.start->value, llist.start->next->value);
+    struct Node *temp = llist.start;
+    while ( temp != NULL ) {
+    	printf("%s ", temp->value);
+    	temp = temp->next;
+    }
+    printf("\n");
 };
+
+
+
+

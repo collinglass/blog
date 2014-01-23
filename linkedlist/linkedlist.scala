@@ -8,7 +8,7 @@ class Node[T](_value: T) {
 class LinkedList[T] {
 	var start : Node[T] = _;
 	var end : Node[T] = _;
-	def addNode(_value: T) : Node[T] = { 
+	def addNode(_value: T) = { 
 		if ( start == null ) {
 			start = new Node[T](_value)
 			end = start
@@ -16,12 +16,27 @@ class LinkedList[T] {
 			end.next = new Node[T](_value)
 			end = end.next
 		}
-		new Node[T](_value)
+	}
+	def removeNode() = { 
+		if ( end != null ) {
+			var temp : Node[T] = start
+			while ( temp.next != end ) {
+				temp = temp.next
+			}
+			temp.next = null
+		}
 	}
 }
 
 var llist = new LinkedList[String]
 llist.addNode("Banana")
 llist.addNode("Split")
+llist.addNode("and Apple Pie")
+llist.removeNode()
 
-println(llist.start.value + " " + llist.start.next.value)
+var node = llist.start
+while ( node != null ) {
+	print(node.value + " ")
+	node = node.next
+}
+println("")

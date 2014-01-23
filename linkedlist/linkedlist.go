@@ -24,9 +24,25 @@ func (ll *LinkedList) addNode( _value interface{} ) {
 	}
 }
 
+func (ll *LinkedList) removeNode( ) {
+	if ll.end != nil {
+		temp := ll.start
+		for temp.next != ll.end {
+			temp = temp.next
+		}
+		temp.next = nil
+	}
+}
+
 func main() {
 	var llist LinkedList
-	llist.addNode("Hello")
-	llist.addNode("World")
-	log.Println(llist.start.value, llist.start.next.value)
+	llist.addNode("Banana")
+	llist.addNode("Split")
+	llist.addNode("and Apple pie")
+	llist.removeNode()
+	var node = llist.start
+	for node != nil {
+		log.Print(node.value)
+		node = node.next
+	}
 }
