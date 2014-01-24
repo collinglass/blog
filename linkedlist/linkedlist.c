@@ -15,7 +15,7 @@ void LinkedList_new(struct LinkedList* llist) {
 	llist->start = 0;
 	llist->end = 0;
 	return;
-}
+};
 
 void addNode( struct LinkedList *ll, void *_value ) {
 	if ( NULL == ll->start ) {

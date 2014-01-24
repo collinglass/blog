@@ -1,10 +1,10 @@
 function LinkedList() {
+	this.start = null;
+	this.end = null;
+
 	this.makeNode = function() {
 		return {value:null, next:null};
 	};
-
-	this.start = null;
-	this.end = null;
 	
 	this.addNode = function( value ) {
 		if ( !this.start ) {
@@ -24,6 +24,7 @@ function LinkedList() {
 				temp = temp.next;
 			}
 			temp.next = null;
+			this.end = temp;
 		};
 	};
 };
@@ -33,5 +34,8 @@ list.addNode("Banana");
 list.addNode("Split");
 list.addNode("and Apple");
 list.removeNode();
-
-document.getElementById("results").innerHTML = list.start.value + ' ' + list.start.next.value;
+var node = list.start;
+while ( node ) {
+	document.getElementById("results").innerHTML += (node.value + " ");
+	node = node.next;
+};
