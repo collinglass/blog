@@ -28,14 +28,3 @@ function LinkedList() {
 		};
 	};
 };
-
-var list = new LinkedList();
-list.addNode("Banana");
-list.addNode("Split");
-list.addNode("and Apple");
-list.removeNode();
-var node = list.start;
-while ( node ) {
-	document.getElementById("results").innerHTML += (node.value + " ");
-	node = node.next;
-};

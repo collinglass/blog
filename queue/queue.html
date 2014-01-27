@@ -1,0 +1,22 @@
+<html !DOCTYPE>
+	<head>
+		<title>queue.js</title>
+	</head>
+	<body>
+		<div id="results"></div>
+	</body>
+
+	<script src="queue.js" type="text/javascript"></script>
+	<script type="text/javascript">
+		var queue1 = new Queue();
+
+		queue1.push("and Apple Pie")
+		queue1.shift();
+		queue1.push("Banana");
+		queue1.push("Split");
+		
+		while ( !queue1.isEmpty() ) {
+			document.getElementById("results").innerHTML += (queue1.shift		() + " ");
+		};
+	</script>
+</html>

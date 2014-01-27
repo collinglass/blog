@@ -21,13 +21,3 @@ function Stack() {
 	}
 };
 
-var stack1 = new Stack();
-
-stack1.push("And Apple Pie")
-stack1.pop();
-stack1.push("Split");
-stack1.push("Banana");
-
-while ( !stack1.isEmpty() ) {
-	document.getElementById("results").innerHTML += (stack1.pop() + " ");
-};
