@@ -18,32 +18,32 @@ typedef enum {
 	REMOVEFAIL
 } BT_ERROR;
 
-void newBT( BinaryTree *_bt ) {
-	_bt->root = 0;
+void newBT( BinaryTree *bt ) {
+	bt->root = 0;
 	return;
 };
 
-Node* makeNode(int _value ) {
+Node* makeNode(int paramValue ) {
 	Node *node = malloc(sizeof(*node));
 	if (node == NULL) {
         return NULL;
     }
-	node->value = _value;
+	node->value = paramValue;
 	node->left = 0;
 	node->right = 0;
 	node->parent = 0;
 	return node;
 };
 
-BT_ERROR insert( BinaryTree* _bt, int _value ) {
-	Node *node = _bt->root;
+BT_ERROR insert( BinaryTree* bt, int paramValue ) {
+	Node *node = bt->root;
 	if ( 0 == node ) {
-		_bt->root = makeNode(_value);
+		bt->root = makeNode(paramValue);
 		return NOERROR;
 	} else {
-		Node *parent = _bt->root;
+		Node *parent = bt->root;
 		while ( 0 != node ) {
-			if ( node->value >= _value ) {
+			if ( node->value >= paramValue ) {
 				parent = node;
 				node = node->left;
 			} else {
@@ -51,7 +51,7 @@ BT_ERROR insert( BinaryTree* _bt, int _value ) {
 				node = node->right;
 			}
 		}
-		node = makeNode(_value);
+		node = makeNode(paramValue);
 		if ( node->value <= parent->value ) {
 			parent->left = node;
 			node->parent = parent;
@@ -67,23 +67,23 @@ BT_ERROR insert( BinaryTree* _bt, int _value ) {
 	return INSERTFAIL;
 };
 
-Node* minNode( Node* _root ) {
-	if ( _root == 0 ) {
+Node* minNode( Node* paramRoot ) {
+	if ( paramRoot == 0 ) {
 		return 0;
 	}
-	Node* result = _root;
+	Node* result = paramRoot;
 	while ( result->left != 0 ) {
 		result = result->left;
 	}
 	return result;
 }
 
-int has( BinaryTree* _bt, int _value ) {
-	Node *node = _bt->root;
+int has( BinaryTree* bt, int paramValue ) {
+	Node *node = bt->root;
 	while ( 0 != node ) {
-		if ( node->value > _value ) {
+		if ( node->value > paramValue ) {
 			node = node->left;
-		} else if ( node->value < _value ) {
+		} else if ( node->value < paramValue ) {
 			node = node->right;
 		} else {
 			return 1;
@@ -92,42 +92,42 @@ int has( BinaryTree* _bt, int _value ) {
 	return 0;
 }
 
-void removal( BinaryTree* _bt, Node* _parent, Node* _node ) {
-	if ( _node == _parent ) {
-		if ( _node->left == 0 && _node->right == 0 ) {
-			free(_bt->root);
+void removal( BinaryTree* bt, Node* paramParent, Node* paramNode ) {
+	if ( paramNode == paramParent ) {
+		if ( paramNode->left == 0 && paramNode->right == 0 ) {
+			free(bt->root);
 			return;
-		} else if ( _node->left != 0 && _node->right == 0 ) {
-			_bt->root = _node->left;
+		} else if ( paramNode->left != 0 && paramNode->right == 0 ) {
+			bt->root = paramNode->left;
 			return;
-		} else if ( _node->left == 0 && _node->right != 0 ) {
-			_bt->root = _node->right;
+		} else if ( paramNode->left == 0 && paramNode->right != 0 ) {
+			bt->root = paramNode->right;
 			return;
 		} else {
 			Node* temp;
-			temp = minNode(_node->right);
+			temp = minNode(paramNode->right);
 			Node* tempParent = temp->parent;
-			_bt->root = temp;
+			bt->root = temp;
 			if ( temp == tempParent->left ) {
 				free(tempParent->left);
 			} else {
 				free(tempParent->right);
 			}
 		}
-	} else if ( _node == _parent->left ) {
-		if ( _node->left == 0 && _node->right == 0 ) {
-			free(_parent->left);
+	} else if ( paramNode == paramParent->left ) {
+		if ( paramNode->left == 0 && paramNode->right == 0 ) {
+			free(paramParent->left);
 			return;
-		} else if ( _node->left != 0 && _node->right == 0 ) {
-			_parent->left = _node->left;
+		} else if ( paramNode->left != 0 && paramNode->right == 0 ) {
+			paramParent->left = paramNode->left;
 			return;
-		} else if ( _node->left == 0 && _node->right != 0 ) {
-			_parent->left = _node->right;
+		} else if ( paramNode->left == 0 && paramNode->right != 0 ) {
+			paramParent->left = paramNode->right;
 			return;
 		} else {
 			Node* temp;
-			temp = minNode(_node->right);
-			Node* tempParent = _parent->left;
+			temp = minNode(paramNode->right);
+			Node* tempParent = paramParent->left;
 			tempParent->value = temp->value;
 			tempParent = temp->parent;
 			if ( temp == tempParent->left ) {
@@ -137,19 +137,19 @@ void removal( BinaryTree* _bt, Node* _parent, Node* _node ) {
 			}
 		}
 	} else {
-		if ( _node->left == 0 && _node->right == 0 ) {
-			_parent->right = 0;
+		if ( paramNode->left == 0 && paramNode->right == 0 ) {
+			paramParent->right = 0;
 			return;
-		} else if ( _node->left != 0 && _node->right == 0 ) {
-			_parent->right = _node->left;
+		} else if ( paramNode->left != 0 && paramNode->right == 0 ) {
+			paramParent->right = paramNode->left;
 			return;
-		} else if ( _node->left == 0 && _node->right != 0 ) {
-			_parent->right = _node->right;
+		} else if ( paramNode->left == 0 && paramNode->right != 0 ) {
+			paramParent->right = paramNode->right;
 			return;
 		} else {
 			Node* temp;
-			temp = minNode(_node->right);
-			_node->value = temp->value;
+			temp = minNode(paramNode->right);
+			paramNode->value = temp->value;
 			Node *tempParent = temp->parent;
 			if ( temp == tempParent->left ) {
 				free(tempParent->left);
@@ -161,19 +161,19 @@ void removal( BinaryTree* _bt, Node* _parent, Node* _node ) {
 	return;
 }
 
-BT_ERROR removeNode( BinaryTree* _bt, int _value ) {
-	Node *parent = _bt->root;
-	Node *node = _bt->root;
-	printf("%d \n", _value);
+BT_ERROR removeNode( BinaryTree* bt, int paramValue ) {
+	Node *parent = bt->root;
+	Node *node = bt->root;
+	printf("%d \n", paramValue);
 	while ( node != 0 ) {
-		if ( node->value > _value ) {
+		if ( node->value > paramValue ) {
 			parent = node;
 			node = node->left;
-		} else if ( node->value < _value ) {
+		} else if ( node->value < paramValue ) {
 			parent = node;
 			node = node->right;
 		} else {
-			removal(_bt, parent, node);
+			removal(bt, parent, node);
 			return NOERROR;
 		}
 	}
@@ -181,27 +181,27 @@ BT_ERROR removeNode( BinaryTree* _bt, int _value ) {
 }
 
 int main () {
-	BinaryTree bt;
-	newBT(&bt);
+	BinaryTree binarytree;
+	newBT(&binarytree);
 
 	for ( int i = 0 ; i <= 10 ; i++ ) {
-		BT_ERROR err = insert(&bt, i);
+		BT_ERROR err = insert(&binarytree, i);
 		if ( err != NOERROR ) {
 			printf("%s \n", err);
 		}
 	}
 	for ( int j = 20 ; j > 10 ; j-- ) {
-		BT_ERROR err = insert(&bt, j);
+		BT_ERROR err = insert(&binarytree, j);
 		if ( err != NOERROR ) {
 			printf("%s \n", err);
 		}
 	}
-	removeNode(&bt, 0);
-	removeNode(&bt, 4);
-	removeNode(&bt, 14);
-	removeNode(&bt, 14);
+	removeNode(&binarytree, 0);
+	removeNode(&binarytree, 4);
+	removeNode(&binarytree, 14);
+	removeNode(&binarytree, 14);
 	for ( int i = 0 ; i <= 20 ; i++ ) {
-		printf("%d: %d \n", i, has(&bt, i));
+		printf("%d: %d \n", i, has(&binarytree, i));
 	}
 	return 0;
 }

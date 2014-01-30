@@ -16,19 +16,19 @@ type BinaryTree struct {
 	root *Node
 }
 
-func ( _bt *BinaryTree ) makeNode( _value int ) *Node {
-	return &Node{ _value, nil, nil, nil }
+func ( bt *BinaryTree ) makeNode( paramValue int ) *Node {
+	return &Node{ paramValue, nil, nil, nil }
 }
 
-func ( _bt *BinaryTree ) insert( _value int ) (bool, error) {
-	if _bt.root == nil {
-		_bt.root = _bt.makeNode( _value )
+func ( bt *BinaryTree ) insert( paramValue int ) (bool, error) {
+	if bt.root == nil {
+		bt.root = bt.makeNode( paramValue )
 		return true, nil
 	} else {
-		parent := _bt.root
-		node := _bt.root
+		parent := bt.root
+		node := bt.root
 		for node != nil {
-			if node.value >= _value {
+			if node.value >= paramValue {
 				parent = node
 				node = node.leftchild
 			} else {
@@ -36,7 +36,7 @@ func ( _bt *BinaryTree ) insert( _value int ) (bool, error) {
 				node = node.rightchild
 			}
 		}
-		node = _bt.makeNode( _value )
+		node = bt.makeNode( paramValue )
 		if node.value <= parent.value {
 			parent.leftchild = node
 			node.parent = parent
@@ -47,17 +47,17 @@ func ( _bt *BinaryTree ) insert( _value int ) (bool, error) {
 			return true, nil
 		}
 	}
-	return false, fmt.Errorf("Failed to insert: %v", _value)
+	return false, fmt.Errorf("Failed to insert: %v", paramValue)
 }
 
-func ( _bt *BinaryTree ) remove( _value int ) (bool, error) {
-	parent := _bt.root
-	node := _bt.root
+func ( bt *BinaryTree ) remove( paramValue int ) (bool, error) {
+	parent := bt.root
+	node := bt.root
 	for node != nil {
-		if node.value > _value {
+		if node.value > paramValue {
 			parent = node
 			node = node.leftchild
-		} else if node.value < _value {
+		} else if node.value < paramValue {
 			parent = node
 			node = node.rightchild
 		} else {
@@ -72,7 +72,7 @@ func ( _bt *BinaryTree ) remove( _value int ) (bool, error) {
 					parent.leftchild = node.rightchild
 					return true, nil
 				} else {
-					temp, err := _bt.minNode(node.rightchild)
+					temp, err := bt.minNode(node.rightchild)
 					parent.leftchild.value = temp.value
 					if temp == temp.parent.leftchild {
 						temp.parent.leftchild = nil
@@ -92,7 +92,7 @@ func ( _bt *BinaryTree ) remove( _value int ) (bool, error) {
 					parent.rightchild = node.rightchild
 					return true, nil
 				} else {
-					temp, err := _bt.minNode(node.rightchild)
+					temp, err := bt.minNode(node.rightchild)
 					parent.rightchild.value = temp.value
 					if temp == temp.parent.leftchild {
 						temp.parent.leftchild = nil
@@ -104,26 +104,26 @@ func ( _bt *BinaryTree ) remove( _value int ) (bool, error) {
 			}
 		}
 	}
-	return false, fmt.Errorf("Failed. Value does not exist: %v", _value)
+	return false, fmt.Errorf("Failed. Value does not exist: %v", paramValue)
 }
 
-func ( _bt *BinaryTree ) minNode( _root *Node ) (*Node, error) {
-	if _root == nil {
+func ( bt *BinaryTree ) minNode( paramRoot *Node ) (*Node, error) {
+	if paramRoot == nil {
 		return nil, fmt.Errorf("Failed. Nil tree you fool.")
 	}
-	result := _root
+	result := paramRoot
 	for result.leftchild != nil {
 		result = result.leftchild
 	}
 	return result, nil
 }
 
-func ( _bt *BinaryTree ) has( _value int ) bool {
-	node := _bt.root
+func ( bt *BinaryTree ) has( paramValue int ) bool {
+	node := bt.root
 	for node != nil {
-		if node.value > _value {
+		if node.value > paramValue {
 			node = node.leftchild
-		} else if node.value < _value {
+		} else if node.value < paramValue {
 			node = node.rightchild
 		} else {
 			return true

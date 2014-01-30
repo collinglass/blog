@@ -14,16 +14,16 @@ function BinaryTree() {
 		var node = new Node();
 		return node;
 	};
-	this.insert = function( _value ) {
+	this.insert = function( paramValue ) {
 		if ( !this.root ) {
 			this.root = this.makeNode();
-			this.root.value = _value;
+			this.root.value = paramValue;
 			return true;
 		} else {
 			var parent = this.root;
 			var node = this.root;
 			while ( node ) {
-				if ( node.value >= _value ) {
+				if ( node.value >= paramValue ) {
 					parent = node;
 					node = node.leftchild;
 				} else {
@@ -32,7 +32,7 @@ function BinaryTree() {
 				}
 			}
 			node = this.makeNode();
-			node.value = _value;
+			node.value = paramValue;
 			if ( node.value <= parent.value ) {
 				parent.leftchild = node;
 				node.parent = parent;
@@ -46,14 +46,14 @@ function BinaryTree() {
 		return false;
 	};
 
-	this.remove = function( _value ) {
+	this.remove = function( paramValue ) {
 		var parent = this.root;
 		var node = this.root;
 		while ( node ) {
-			if ( node.value > _value ) {
+			if ( node.value > paramValue ) {
 				parent = node;
 				node = node.leftchild;
-			} else if (node.value < _value) {
+			} else if (node.value < paramValue) {
 				parent = node;
 				node = node.rightchild;
 			} else {
@@ -103,20 +103,20 @@ function BinaryTree() {
 		return false;
 	};
 
-	this.minNode = function ( _root ) {
-		var result = _root;
+	this.minNode = function ( paramRoot ) {
+		var result = paramRoot;
 		while ( result.leftchild ) {
 			result = result.leftchild;
 		}
 		return result;
 	};
 
-	this.has = function( _value ) {
+	this.has = function( paramValue ) {
 		var node = this.root;
 		while ( node ) {
-			if ( node.value > _value ) {
+			if ( node.value > paramValue ) {
 				node = node.leftchild;
-			} else if (node.value < _value) {
+			} else if (node.value < paramValue) {
 				node = node.rightchild;
 			} else {
 				return true;

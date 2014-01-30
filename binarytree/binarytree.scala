@@ -1,31 +1,31 @@
 // binarytree.scala
 
  sealed abstract class Tree {
-   def insert(_value: Int) : Node
-   def search(_value: Int) : Boolean
-   def remove(_value: Int) : Tree
+   def insert(paramValue: Int) : Node
+   def search(paramValue: Int) : Boolean
+   def remove(paramValue: Int) : Tree
    def minimumValue() : Int
    def minimumRemove() : Tree
  }
  
  case class Node(var value: Int, left: Tree, right: Tree) extends Tree {
-   def insert(_value: Int) =
-      if (_value < value) Node(value, left.insert(_value), right)
-      else Node(value, left, right.insert(_value))
+   def insert(paramValue: Int) =
+      if (paramValue < value) Node(value, left.insert(paramValue), right)
+      else Node(value, left, right.insert(paramValue))
 
-   def search(_value: Int) =
-      if ( _value < value ) left.search(_value)
-      else if ( _value > value ) right.search(_value)
+   def search(paramValue: Int) =
+      if ( paramValue < value ) left.search(paramValue)
+      else if ( paramValue > value ) right.search(paramValue)
       else true
 
-   def remove(_value: Int) =
-      if (_value < value) Node(value, left.remove(_value), right)
-      else if ( _value > value ) Node(value, left, right.remove(_value))
+   def remove(paramValue: Int) =
+      if (paramValue < value) Node(value, left.remove(paramValue), right)
+      else if ( paramValue > value ) Node(value, left, right.remove(paramValue))
       else this match {
-         case (Node(_value, End, End)) => End
-         case (Node(_value, left, End)) => left
-         case (Node(_value, End, right)) => right
-         case (Node(_value, left, right)) => Node(right.minimumValue(), left, right.minimumRemove())
+         case (Node(paramValue, End, End)) => End
+         case (Node(paramValue, left, End)) => left
+         case (Node(paramValue, End, right)) => right
+         case (Node(paramValue, left, right)) => Node(right.minimumValue(), left, right.minimumRemove())
       }
 
    def minimumValue() =
@@ -42,15 +42,15 @@
  }
 
  case object End extends Tree {
-   def insert(_value: Int) = Node(_value)
-   def search(_value: Int) = false
-   def remove(_value: Int) = End
+   def insert(paramValue: Int) = Node(paramValue)
+   def search(paramValue: Int) = false
+   def remove(paramValue: Int) = End
    def minimumValue() = 0
    def minimumRemove() = End
  }
 
  object Node {
-   def apply(_value: Int): Node = Node(_value, End, End)
+   def apply(paramValue: Int): Node = Node(paramValue, End, End)
  }
 
 
