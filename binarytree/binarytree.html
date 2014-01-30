@@ -1,0 +1,26 @@
+<html !DOCTYPE>
+	<head>
+		<title>binarytree.js</title>
+	</head>
+	<body>
+		<div id="results"></div>
+
+		<script src="binarytree.js" type="text/javascript"></script>
+		<script type="text/javascript">
+			var bt = new BinaryTree(typeof(1));
+
+			bt.insert(8);
+			bt.insert(13);
+			bt.insert(11);
+			bt.insert(15);
+			document.getElementById("results").innerHTML += "has(8):" + bt.has(8) + ". ";
+			document.getElementById("results").innerHTML += "has(11):" + bt.has(11) + ". ";
+			document.getElementById("results").innerHTML += "has(15):" + bt.has(15) + ". <br>";
+			document.getElementById("results").innerHTML += "has(13):" + bt.has(13) + ". ";
+			document.getElementById("results").innerHTML += "remove(13):" + bt.remove(13) + ". ";
+			document.getElementById("results").innerHTML += "has(13):" + bt.has(13) + ". <br>";
+		</script>
+	</body>
+
+	
+</html>
